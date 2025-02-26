@@ -3,7 +3,6 @@ package waa.miu.lap1.entity.dto;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import waa.miu.lap1.entity.Post;
 
 @Data
 @Getter
@@ -12,12 +11,24 @@ public class PostDto {
     long id;
     String title;
     String content;
-    String author;
-    private PostDto() {}
-    public PostDto(int i, String s, String s1, String s2) {
-        id = i;
-        title = s;
-        content = s1;
-        author = s2;
-    }
+    UserDto author;
+
+//    public PostDto(int i, String s, String s1, UserDto userDto) {
+//        id = i;
+//        title = s;
+//        content = s1;
+//        userPostDto = new UserPostDto(userDto.id, userDto.name);
+//    }
+//
+//
+//    static class UserPostDto {
+//        long author_id;
+//        String author_name;
+//
+//        public UserPostDto(long author_id, String author_name) {
+//            this.author_id = author_id;
+//            this.author_name = author_name;
+//        }
+//    }
+
 }

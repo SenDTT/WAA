@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import waa.miu.lap1.entity.Post;
 import waa.miu.lap1.entity.dto.PostDto;
+import waa.miu.lap1.entity.dto.input.InputPostDto;
 import waa.miu.lap1.service.PostService;
 
 import java.util.List;
@@ -30,24 +31,24 @@ public class PostController {
     }
 
     @GetMapping("/{id}") // GET - localhost:8080/posts/{id}
-    public ResponseEntity<Post> getPost(@PathVariable("id") long id) {
-        Post post = postService.getPost(id);
+    public ResponseEntity<PostDto> getPost(@PathVariable("id") int id) {
+        PostDto post = postService.getPost(id);
 
         return ResponseEntity.ok(post);
     }
 
     @PostMapping // POST - localhost:8080/posts
-    public void createPost(@RequestBody PostDto post) {
+    public void createPost(@RequestBody InputPostDto post) {
         postService.addPost(post);
     }
 
     @DeleteMapping("/{id}") // DELETE - localhost:8080/posts/{id}
-    public void deletePost(@PathVariable("id") long id) {
+    public void deletePost(@PathVariable("id") int id) {
         postService.deletePost(id);
     }
 
     @PutMapping("/{id}") // PUT - localhost:8080/posts/{id}
-    public void updatePost(@PathVariable("id") long id, @RequestBody PostDto post) {
+    public void updatePost(@PathVariable("id") int id, @RequestBody PostDto post) {
         postService.updatePost(id, post);
     }
 }

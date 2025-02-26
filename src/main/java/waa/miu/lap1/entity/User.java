@@ -3,16 +3,18 @@ package waa.miu.lap1.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
-@Table(name = "posts")
+@Table(name = "users")
 @Data
-public class Post {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
-    String title;
-    String content;
+    String name;
 
-    @ManyToOne
-    User author;
+    @OneToMany
+    @JoinColumn(name = "author_id")
+    List<Post> posts;
 }
