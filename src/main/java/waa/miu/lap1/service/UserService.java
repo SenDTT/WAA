@@ -12,4 +12,6 @@ public interface UserService {
     public void save(UserDto userDto);
     public List<PostNoAuthorDto> getPosts(int id);
     public List<UserDto> getUsersHaveMoreThanOnePost();
+    public List<UserDto> getUsersHaveMoreThanNPost(int n);
+    public void delete(int id);
 }

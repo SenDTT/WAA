@@ -15,4 +15,7 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 
     @Query("select u, count(p.id) from User u Join u.posts p group by u.id having count(p.id) > 1 ")
     public List<User> getUsersHaveMoreThanOnePost();
+
+    @Query("select u, count(p.id) from User u Join u.posts p group by u.id having count(p.id) > :num ")
+    public List<User> getUsersHaveMoreThanNPost(int num);
 }

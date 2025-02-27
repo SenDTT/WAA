@@ -1,6 +1,8 @@
 package waa.miu.lap1.service;
 
-import waa.miu.lap1.entity.Post;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import waa.miu.lap1.entity.dto.CommentDto;
 import waa.miu.lap1.entity.dto.PostDto;
 import waa.miu.lap1.entity.dto.input.InputPostDto;
 
@@ -14,4 +16,6 @@ public interface PostService {
     public PostDto getPost(int id);
     public List<PostDto> getPostsByAuthor(String author);
     public List<PostDto> getPostsBySearch(String search);
+    public Page<PostDto> searchPost(String author, String title, Pageable pageable);
+    public List<CommentDto> getCommentsByPost(int postId);
 }

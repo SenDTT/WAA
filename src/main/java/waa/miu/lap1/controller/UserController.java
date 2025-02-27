@@ -18,10 +18,12 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<UserDto>> findAll(@RequestParam(required = false) String hasMoreThanOnePost) {
+    public ResponseEntity<List<UserDto>> findAll(@RequestParam(required = false) String hasMoreThanOnePost, @RequestParam(defaultValue = "0") int hasMoreThanNPosts) {
         List<UserDto> users;
         if (hasMoreThanOnePost != null) {
             users = userService.getUsersHaveMoreThanOnePost();
+        } else if (hasMoreThanNPosts != 0) {
+            users = userService.getUsersHaveMoreThanNPost(hasMoreThanNPosts);
         } else {
             users = userService.findAll();
         }
@@ -43,5 +45,10 @@ public class UserController {
     public ResponseEntity<List<PostNoAuthorDto>> getPosts(@PathVariable("id") int id) {
         List<PostNoAuthorDto> posts = userService.getPosts(id);
         return ResponseEntity.ok(posts);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") int id) {
+        userService.delete(id);
     }
 }
