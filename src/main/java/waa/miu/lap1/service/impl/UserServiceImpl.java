@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import waa.miu.lap1.aspect.ExecutionTime;
 import waa.miu.lap1.entity.Post;
 import waa.miu.lap1.entity.User;
 import waa.miu.lap1.entity.dto.PostDto;
@@ -30,8 +31,9 @@ public class UserServiceImpl implements UserService {
     private ModelMapper modelMapper;
 
     @Override
+    @ExecutionTime
     public UserDto findById(int id) {
-        User u = userRepo.findById(id);
+        User u = userRepo.findById(id).orElseThrow(() -> new RuntimeException("User with id " + id + " not found"));
 
         return modelMapper.map(u, UserDto.class);
     }
@@ -50,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<PostNoAuthorDto> getPosts(int id) {
-        User user = userRepo.findById(id);
+        User user = userRepo.findById(id).orElseThrow(() -> new RuntimeException("User with id " + id + " not found"));
         List<Post> posts = user.getPosts();
 
         return posts.stream().map(post -> modelMapper.map(post, PostNoAuthorDto.class)).collect(Collectors.toList());

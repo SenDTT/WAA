@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserRepo extends JpaRepository<User, Integer> {
     List<User> findAll();
 
-    User findById(int id);
+//    User findById(int id);
 
     void deleteById(int id);
 
