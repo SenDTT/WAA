@@ -46,7 +46,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void addPost(InputPostDto post) {
-        User u = userRepo.findById(post.getAuthor_id());
+        User u = userRepo.findById(post.getAuthor_id()).orElse(null);
         Post p = modelMapper.map(post, Post.class);
         p.setAuthor(u);
         entityManager.persist(p);

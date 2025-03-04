@@ -11,6 +11,8 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 
 //    User findById(int id);
 
+    User findByEmail(String email);
+
     void deleteById(int id);
 
     @Query("select u, count(p.id) from User u Join u.posts p group by u.id having count(p.id) > 1 ")
