@@ -12,4 +12,5 @@ public class InputPostDto {
     String title;
     String content;
     int author_id;
+    String author_name;
 }

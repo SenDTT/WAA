@@ -10,7 +10,7 @@ import waa.miu.lap1.service.CommentService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/comments")
+@RequestMapping("/api/v1/auth/comments")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CommentController {
     @Autowired

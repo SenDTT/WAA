@@ -1,6 +1,7 @@
 package waa.miu.lap1.service.impl;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -20,6 +21,7 @@ import waa.miu.lap1.repository.UserRepo;
 import waa.miu.lap1.service.PostService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,8 +47,17 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional
     public void addPost(InputPostDto post) {
-        User u = userRepo.findById(post.getAuthor_id()).orElse(null);
+        User u;
+        if (post.getAuthor_id() != 0) {
+            u = userRepo.findById(post.getAuthor_id()).orElse(null);
+        } else {
+            u = new User();
+            u.setName(post.getAuthor_name());
+            u.setEmail("");
+            entityManager.persist(u);
+        }
         Post p = modelMapper.map(post, Post.class);
         p.setAuthor(u);
         entityManager.persist(p);
@@ -65,7 +76,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void deletePost(int id) {
-        entityManager.remove(userRepo.findById(id));
+        Post post = postRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("Post not found with id: " + id));
+        entityManager.remove(post);
     }
 
     @Override

@@ -13,7 +13,7 @@ import waa.miu.lap1.service.PostService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/posts")
+@RequestMapping("/api/v1/auth/posts")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PostController {
     @Autowired
@@ -46,13 +46,15 @@ public class PostController {
     }
 
     @PostMapping // POST - localhost:8080/posts
-    public void createPost(@RequestBody InputPostDto post) {
+    public ResponseEntity<String> createPost(@RequestBody InputPostDto post) {
         postService.addPost(post);
+        return ResponseEntity.ok("Added successfully");
     }
 
     @DeleteMapping("/{id}") // DELETE - localhost:8080/posts/{id}
-    public void deletePost(@PathVariable("id") int id) {
+    public ResponseEntity<String> deletePost(@PathVariable("id") int id) {
         postService.deletePost(id);
+        return ResponseEntity.ok("Deleted successfully");
     }
 
     @PutMapping("/{id}") // PUT - localhost:8080/posts/{id}

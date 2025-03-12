@@ -3,6 +3,7 @@ package waa.miu.lap1.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import waa.miu.lap1.aspect.ExecutionTime;
 import waa.miu.lap1.entity.dto.PostDto;
 import waa.miu.lap1.entity.dto.UserDto;
 import waa.miu.lap1.entity.dto.output.PostNoAuthorDto;
@@ -11,7 +12,7 @@ import waa.miu.lap1.service.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/auth/users")
+@RequestMapping("/api/v1/auth/users")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
     @Autowired
@@ -31,12 +32,14 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @ExecutionTime
     public ResponseEntity<UserDto> findById(@PathVariable("id") int id) {
         UserDto userDto = userService.findById(id);
         return ResponseEntity.ok(userDto);
     }
 
     @PostMapping
+    @ExecutionTime
     public void save(@RequestBody UserDto userDto) {
         userService.save(userDto);
     }
@@ -48,6 +51,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @ExecutionTime
     public void delete(@PathVariable("id") int id) {
         userService.delete(id);
     }
